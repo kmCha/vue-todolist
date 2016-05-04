@@ -4,5 +4,7 @@ export function addTodo(store, todo) {
 };
 export function deleteTodo(store, todo) {
   store.dispatch("DELETETODO", todo);
-  console.log("haha");
+};
+export function toggleTodo(store, todo) {
+  store.dispatch("TOGGLETODO", todo);
 };

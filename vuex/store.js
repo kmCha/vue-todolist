@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import middlewares from "../vuex/middlewares.js"
 
 Vue.use(Vuex);
 
@@ -10,19 +11,17 @@ const state = {
 const mutations = {
   ADDTODO(state, todo) {
     state.todos.push(todo);
-    updataLocalStorage(state);
   },
   DELETETODO(state, todo) {
     state.todos.$remove(todo);
-    updataLocalStorage(state);
+  },
+  TOGGLETODO(state, todo) {
+    todo.done = !todo.done;
   }
 };
 
-function updataLocalStorage(state) {
-  localStorage.setItem("vue-todolist", JSON.stringify(state.todos));
-}
-
 export default new Vuex.Store({
   state,
-  mutations
+  mutations,
+  middlewares
 });

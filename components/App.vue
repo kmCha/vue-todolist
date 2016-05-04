@@ -1,8 +1,10 @@
 <template>
   <div class="app">
-    <input type="text" placeholder="输入todo" autofocus @keyup.enter="tryAddTodo">
-    <ul>
-      <todo v-for="todo in todos" :todo="todo"></todo>
+    <div class="input-wrap">
+        <input class="input-todo" type="text" placeholder="输入todo" maxlength="10" autofocus @keyup.enter="tryAddTodo">
+    </div>
+    <ul class="todo-list">
+      <todo v-for="todo in todos" transition="animate" :todo="todo"></todo>
     </ul>
   </div>
 </template>
@@ -23,7 +25,8 @@
         var value = e.target.value.trim();
         if(value) {
           this.addTodo({
-            value
+            value,
+            done: false
           });
           e.target.value = "";
         }
@@ -39,3 +42,32 @@
     }
   };
 </script>
+
+<style>
+.todo-list {
+  list-style-type: none;
+  padding-left: 0px;
+  width: 10em;
+  margin: 0 auto;
+}
+.input-wrap {
+  width: 10em;
+  margin: 0 auto;
+}
+.input-todo {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid;
+  text-align: center;
+}
+.animate-transition {
+  transition: all 0.5s ease;
+  height: 10px;
+  padding: 5px;
+}
+.animate-enter, .animate-leave {
+  height: 0;
+  padding: 0 5px;
+  opacity: 0;
+}
+</style>
