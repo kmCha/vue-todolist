@@ -10,7 +10,7 @@
     <ul class="todo-list">
       <todo v-for="todo in filteredTodos" transition="animate" :todo="todo"></todo>
     </ul>
-    <footer>
+    <footer v-show="todos.length">
       <ul>
         <li v-for="(key, value) in filters">
           <a href="javascript: void(0);" @click="selectedFilter=key">
@@ -81,7 +81,7 @@ input:focus {
   outline: none;
 }
 header {
-  width: 15em;
+  width: 25em;
   margin: 0 auto;
   text-align: center;
   color: #eb8888;
@@ -91,11 +91,11 @@ header {
 .todo-list {
   list-style-type: none;
   padding-left: 0px;
-  width: 15em;
+  width: 25em;
   margin: 0 auto;
 }
 .input-wrap {
-  width: 15em;
+  width: 25em;
   margin: 0 auto;
 }
 .input-todo {
@@ -116,11 +116,30 @@ header {
   opacity: 0;
 }
 footer {
-  width: 15em;
+  position: relative;
+  width: 25em;
   margin: 0 auto;
+  /*border-bottom: 1px solid #aaa;*/
+  /*box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05);*/
+}
+footer::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+              0 7px 0 -4px #fff,
+              0 8px 1px -4px rgba(0, 0, 0, 0.2),
+              0 14px 0 -8px #fff,
+              0 15px 1px -8px rgba(0, 0, 0, 0.2);
 }
 footer ul {
-  padding: 0;
+  padding: 0.5em 0;
+  margin: 0;
   text-align: center;
 }
 footer li {
@@ -129,10 +148,11 @@ footer li {
   margin: 5px 10px;
   border: 1px #eb8888 solid;
   border-radius: 0.5em;
-  padding: 2px 5px;
   transition: all 0.5s ease;
 }
 footer li a {
+  display: block;
+  padding: 2px 5px;
   text-decoration: none;
   color: #eb8888;
 }
