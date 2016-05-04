@@ -5,18 +5,15 @@
 </template>
 
 <script>
+  import {deleteTodo} from "../vuex/actions.js";
+
   export default {
     props: [
       'todo'
     ],
-    data() {
-      return {
-        msg: "hello sb"
-      }
-    },
-    methods: {
-      deleteTodo(todo) {
-        this.$dispatch('delete-todo', todo);
+    vuex: {
+      actions: {
+        deleteTodo
       }
     }
   }

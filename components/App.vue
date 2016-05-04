@@ -1,8 +1,6 @@
 <template>
   <div class="app">
-    {{msg}}
-    <br>
-    <input type="text" v-model="msg" autofocus @keyup.enter="addTodo">
+    <input type="text" placeholder="输入todo" autofocus @keyup.enter="tryAddTodo">
     <ul>
       <todo v-for="todo in todos" :todo="todo"></todo>
     </ul>
@@ -11,34 +9,32 @@
 
 <script>
   import Todo from "./Todo.vue";
+  import store from "../vuex/store";
+  import {addTodo} from "../vuex/actions.js";
+  import {todos} from "../vuex/getters.js";
 
   export default {
     components: {
       Todo
     },
-    data() {
-      var todos = JSON.parse(localStorage.getItem("vue-todolist")) || [];
-      return {
-        msg: "hello sb",
-        todos
-      }
-    },
+    store,
     methods: {
-      addTodo(e) {
+      tryAddTodo(e) {
         var value = e.target.value.trim();
         if(value) {
-          this.todos.push({
+          this.addTodo({
             value
           });
           e.target.value = "";
-          localStorage.setItem("vue-todolist", JSON.stringify(this.todos));
         }
       }
     },
-    events: {
-      'delete-todo'(todo) {
-        this.todos.$remove(todo);
-        localStorage.setItem("vue-todolist", JSON.stringify(this.todos));
+    vuex: {
+      actions: {
+        addTodo
+      },
+      getters: {
+        todos
       }
     }
   };

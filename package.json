@@ -36,7 +36,8 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "vue": "^1.0.13"
+    "vue": "^1.0.13",
+    "vuex": "^0.6.3"
   },
   "homepage": "https://github.com/kmCha/vue-todolist#readme"
 }
