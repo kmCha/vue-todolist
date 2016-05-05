@@ -1,6 +1,6 @@
 <template>
   <li class="todo">
-    <div :class="{'wrap-todo': true, 'done': todo.done}" @dblclick="editing = true">
+    <div :class="{'wrap-todo': true, 'done': todo.done, 'editing': editing}" @dblclick="editing = true">
       <div class="toggle-wrap" @click.stop="toggleTodo(todo)" @dblclick.stop v-show="!editing">
         <input id="toggle-{{index}}" class="toggle-todo" type="checkbox" :checked="todo.done" @click.stop.prevent>
         <label for="toggle-{{index}}"></label>
@@ -70,7 +70,6 @@
   border-bottom: 1px solid #aaa;
   overflow: hidden;
   position: relative;
-  /*padding: 50px;*/
 }
 .wrap-todo {
   position: absolute;
@@ -81,6 +80,9 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+}
+.editing.wrap-todo {
+  right: 0;
 }
 .value-todo {
   position: relative;
