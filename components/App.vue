@@ -5,10 +5,10 @@
       <sub>({{selectedFilter}})</sub>
     </header>
     <div class="input-wrap">
-        <input class="input-todo" type="text" placeholder="输入todo" maxlength="10" autofocus @keyup.enter="tryAddTodo">
+        <input class="input-todo" type="text" placeholder="这里输入" maxlength="10" autofocus @keyup.enter="tryAddTodo">
     </div>
     <ul class="todo-list">
-      <todo v-for="todo in filteredTodos" transition="animate" :todo="todo"></todo>
+      <todo v-for="todo in filteredTodos" transition="animate" :todo="todo" :index="$index"></todo>
     </ul>
     <footer v-show="todos.length">
       <ul>
