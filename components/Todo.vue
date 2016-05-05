@@ -1,28 +1,65 @@
 <template>
   <li class="todo">
-    <div :class="{'wrap-todo': true, 'done': todo.done}">
-      <div class="toggle-wrap">
-        <input id="toggle-{{index}}" class="toggle-todo" type="checkbox" :checked="todo.done" @change="toggleTodo(todo)">
+    <div :class="{'wrap-todo': true, 'done': todo.done, 'editing': editing}" @dblclick="editing = true">
+      <div class="toggle-wrap" @click.stop="toggleTodo(todo)" @dblclick.stop v-show="!editing">
+        <input id="toggle-{{index}}" class="toggle-todo" type="checkbox" :checked="todo.done" @click.stop.prevent>
         <label for="toggle-{{index}}"></label>
       </div>
-      <span class="value-todo">{{ todo.value }}</span>
+      <span class="value-todo">
+        {{ todo.value }}
+      </span>
+      <input class="value-edit"
+             :value="todo.value"
+             v-show="editing"
+             v-focus="editing"
+             @blur="cancelEdit"
+             @keyup.esc="cancelEdit"
+             @keyup.enter="submitEdit"
+             >
     </div>
     <input class="delete-todo" type="button" value="x" @click="deleteTodo(todo)">
   </li>
 </template>
 
 <script>
-  import {deleteTodo, toggleTodo} from "../vuex/actions.js";
+  import {deleteTodo, toggleTodo, updateTodo} from "../vuex/actions.js";
 
   export default {
     props: [
       'todo',
       'index'
     ],
+    data() {
+      return {
+        editing: false
+      }
+    },
     vuex: {
       actions: {
         deleteTodo,
-        toggleTodo
+        toggleTodo,
+        updateTodo
+      }
+    },
+    methods: {
+      cancelEdit(e) {
+        this.editing = false;
+      },
+      submitEdit(e) {
+        var value = e.target.value.trim();
+        if(value) {
+          this.updateTodo(this.todo, value);
+        }
+        e.target.blur();
+      }
+    },
+    directives: {
+      focus(editing) {
+        if(editing) {
+          this.vm.$nextTick(
+            () => this.el.focus()
+          );
+        }
       }
     }
   }
@@ -33,20 +70,35 @@
   border-bottom: 1px solid #aaa;
   overflow: hidden;
   position: relative;
-  /*padding: 50px;*/
 }
 .wrap-todo {
   position: absolute;
   top: 0;
   bottom: 0;
+  right: 2em;
+  left: 0;
   display: flex;
   align-items: center;
+  overflow: hidden;
+}
+.editing.wrap-todo {
+  right: 0;
 }
 .value-todo {
+  position: relative;
   padding-left: 0.5em;
   line-height: 1.5em;
   transition: all 0.5s ease;
   color: #333;
+}
+.value-edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 1em;
+  border: none;
 }
 .done .value-todo {
   text-decoration: line-through;
@@ -54,7 +106,6 @@
 }
 .delete-todo {
   visibility: hidden;
-  /*padding: 0.2em;*/
   font-size: 1.6em;
   float: right;
   border: none;
@@ -74,6 +125,9 @@
   width: 22px;
   border-radius: 3px;
   background-color: #eb8888;
+}
+.toggle-wrap:hover {
+  cursor: pointer;
 }
 .done .toggle-wrap {
   background-color: #88eb88;

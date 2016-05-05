@@ -108,11 +108,12 @@ header {
   padding: 10px 0;
 }
 .animate-transition {
-  padding: 0.4em;
+  left: 0;
   transition: all 0.5s ease;
 }
 .animate-enter, .animate-leave {
-  padding: 0.4em 0 0.4em 2em;
+  /*padding: 0.4em 0 0.4em 2em;*/
+  left: 50px;
   opacity: 0;
 }
 footer {

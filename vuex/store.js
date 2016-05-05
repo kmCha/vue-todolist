@@ -17,6 +17,9 @@ const mutations = {
   },
   TOGGLETODO(state, todo) {
     todo.done = !todo.done;
+  },
+  UPDATATODO(state, todo, value) {
+    todo.value = value;
   }
 };
 
