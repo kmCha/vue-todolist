@@ -113,6 +113,9 @@
   line-height: 1.5em;
   color: #eb8888;
 }
+.delete-todo:hover {
+  cursor: pointer;
+}
 .todo:hover .delete-todo {
   visibility: visible;
 }
