@@ -1,8 +1,8 @@
 <template>
   <li class="todo">
     <div :class="{'wrap-todo': true, 'done': todo.done}">
-      <div class="toggle-wrap">
-        <input id="toggle-{{index}}" class="toggle-todo" type="checkbox" :checked="todo.done" @change="toggleTodo(todo)">
+      <div class="toggle-wrap" @click="toggleTodo(todo)">
+        <input id="toggle-{{index}}" class="toggle-todo" type="checkbox" :checked="todo.done" @click.stop.prevent>
         <label for="toggle-{{index}}"></label>
       </div>
       <span class="value-todo">{{ todo.value }}</span>
@@ -74,6 +74,9 @@
   width: 22px;
   border-radius: 3px;
   background-color: #eb8888;
+}
+.toggle-wrap:hover {
+  cursor: pointer;
 }
 .done .toggle-wrap {
   background-color: #88eb88;
