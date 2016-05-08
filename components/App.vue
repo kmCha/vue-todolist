@@ -19,6 +19,8 @@
         </li>
       </ul>
     </footer>
+    <a class="link-to-source" href="https://github.com/kmCha/vue-todolist">View Source</a>
+    <span class="author">® kMchA</span>
   </div>
 </template>
 
@@ -159,5 +161,20 @@ footer li a {
 }
 footer li:hover {
   background-color: #ffefee;
+}
+.link-to-source {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+  text-decoration: none;
+  color: #eb8888;
+}
+.author {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 0.7em;
+  color: #555;
 }
 </style>
